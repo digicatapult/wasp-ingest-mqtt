@@ -1,0 +1,77 @@
+global:
+  waspIngestMqtt:
+    fullnameOverride:
+    nameOverride:
+
+mosquitto:
+  enabled: true
+  auth:
+    hasher: pbkdf2
+    checkPrefixes: true
+    files:
+      enabled: true
+      prefix: internal_
+      passwordEntries: ''
+      # To use authentication with mosquitto, you can set a list of password entries to be used.
+      # reference https://mosquitto.org/man/mosquitto_passwd-1.html to generate these entries.
+      # For example:
+      # passwordEntries: |-
+      #   user1:$6$BKzw0RKerxV4Esbj$Uz5slWGB1TiOtYIEokEl0eR1YSEQAdKpcdRYMsLYbwjktlVzdLyGk41YCPGyMLnBePtdwPhkcm8kjGI0R9s57w==
+      #   user2:$6$b5vYuHrSLj48Ii32$NjlbnatIaUQSsNvxxTpawpav6NPyZ8QhGrdEVGtyU1rgEGjNzVGKlstRg29FV6MFTPs/ugPA8D5I5+qRcIMXSg==
+      passwordPath: '/etc/mosquitto/passwordfile'
+      acls: ''
+      # To use authorizations with mosquitto, you can set a list of per user or pattern-based rules.
+      # reference https://mosquitto.org/man/mosquitto-conf-5.html for further information.
+      # For example:
+      # acls: |-
+      #   zigbee2mqtt ACLs
+      #   user zigbee2mqtt
+      #   topic readwrite zigbee2mqtt/#
+      #   topic readwrite homeassistant/#
+      #   Tasmota-compatible ACLs
+      #   pattern read cmnd/%u/#
+      #   pattern write stat/%u/#
+      #   pattern write tele/%u/#
+      aclPath: '/etc/mosquitto/aclfile'
+    jwt:
+      enabled: true
+      prefix: things_
+      mode: 'remote'
+
+      # remote mode options
+      jwtHostTemplate: 'wasp-ingest-mqtt.fullname'
+      jwtPort: 80
+      jwtGetuserUri: /user
+      jwtAclcheckUri: /acl
+kafka:
+  enabled: true
+waspthingmock:
+  enabled: false
+
+service:
+  type: ClusterIP
+  annotations: {}
+
+config:
+  port: 80
+  logLevel: info
+  kafka:
+    logLevel: nothing
+    rawPayloadTopic: raw-payloads
+  mqtt:
+    username: ''
+    password: ''
+  waspIngestName: ingest-mqtt
+  init:
+    registerIngest: true
+    thingServiceName: wasp-thing-service
+    thingServicePort: 80
+  waspAuthHost: wasp-authentication-service
+  waspAuthPort: 80
+  authRoute: auth
+  apiMajorVersion: v1
+image:
+  repository: ghcr.io/digicatapult/wasp-ingest-mqtt
+  pullPolicy: IfNotPresent
+  tag: 'v0.0.7'
+  pullSecrets: ['ghcr-digicatapult']

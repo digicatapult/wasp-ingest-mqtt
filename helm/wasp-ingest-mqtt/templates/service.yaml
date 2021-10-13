@@ -1,0 +1,21 @@
+{{- $fullName := include "wasp-ingest-mqtt.fullname" . -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "wasp-ingest-mqtt.labels" . | nindent 4 }}
+{{- with .Values.service.annotations }}
+  annotations:
+  {{- range $key, $value := . }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    name: {{ include "wasp-ingest-mqtt.fullname" . }}
+  ports:
+    - protocol: 'TCP'
+      port: 80
+      targetPort: {{ .Values.config.port }}

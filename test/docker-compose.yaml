@@ -3,10 +3,12 @@ version: "3"
 services:
   mosquitto:
     build:
-      context: ./mosquitto-go-auth
+      context: ../mosquitto-go-auth
     ports:
       - 1883:1883
       - 9090:9090
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   zookeeper:
     image: 'docker.io/bitnami/zookeeper:3-debian-10'
     ports:

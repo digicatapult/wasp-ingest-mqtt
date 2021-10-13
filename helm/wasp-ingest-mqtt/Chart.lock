@@ -1,0 +1,12 @@
+dependencies:
+- name: mosquitto-go-auth
+  repository: https://digicatapult.github.io/mosquitto-go-auth-helm/
+  version: 0.0.2
+- name: kafka
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.7.3
+- name: nginx
+  repository: https://charts.bitnami.com/bitnami
+  version: 8.9.1
+digest: sha256:fa097fd850b43a4951f8454dbd36647583b87186c808f7a0df84abdc4eb9bd1f
+generated: "2021-10-14T16:22:43.290534+01:00"

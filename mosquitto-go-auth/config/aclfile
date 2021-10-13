@@ -1,0 +1,2 @@
+user internal_ingest_mqtt
+topic read things/+/messages

@@ -1,12 +1,13 @@
 const { describe, before, it } = require('mocha')
 const { expect } = require('chai')
 
-const { setupServer } = require('./helpers/server')
+const { setupMockServer } = require('./helpers/server')
 
 describe('health', function () {
   const context = {}
+  setupMockServer(context)
+
   before(async function () {
-    await setupServer(context)
     context.response = await context.request.get('/health')
   })
 

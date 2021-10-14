@@ -1,0 +1,33 @@
+apiVersion: v1
+entries:
+  wasp-ingest-mqtt:
+  - apiVersion: v2
+    appVersion: 0.0.7
+    created: "2021-10-14T15:29:54.061734182Z"
+    dependencies:
+    - alias: mosquitto
+      condition: mosquitto.enabled
+      name: mosquitto-go-auth
+      repository: https://digicatapult.github.io/mosquitto-go-auth-helm/
+      version: 0.0.2
+    - condition: kafka.enabled
+      name: kafka
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.7.3
+    - alias: waspthingmock
+      condition: waspthingmock.enabled
+      name: nginx
+      repository: https://charts.bitnami.com/bitnami
+      version: ^8.7.1
+    description: A Helm chart for wasp-ingest-mqtt
+    digest: 1008b62d27f718bf792be3c706c72253f7117c776012259dc24d0550219151fc
+    maintainers:
+    - email: opensource@digicatapult.org.uk
+      name: digicatapult
+      url: www.digicatapult.org.uk
+    name: wasp-ingest-mqtt
+    type: application
+    urls:
+    - https://digicatapult.github.io/wasp-ingest-mqtt/wasp-ingest-mqtt-0.0.7.tgz
+    version: 0.0.7
+generated: "2021-10-14T15:29:54.047774653Z"

@@ -16,6 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/digicatapult/wasp-ingest-mqtt.git"
   },
+  "engines": {
+    "node": ">=18.13.0"
+  },
   "keywords": [
     "WASP"
   ],

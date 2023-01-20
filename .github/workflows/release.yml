@@ -97,8 +97,6 @@ jobs:
         uses: kibertoad/wait-action@1.0.1
         with:
           time: "30s"
-      - name: Initialise DB
-        run: npx knex migrate:latest --env test
       - name: Run tests
         run: npm run test
   check-version:

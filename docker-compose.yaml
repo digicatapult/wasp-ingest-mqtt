@@ -1,5 +1,5 @@
 # docker-compose.yml
-version: "3"
+version: "2"
 services:
   mosquitto:
     build:
@@ -7,8 +7,10 @@ services:
     ports:
       - 1883:1883
       - 9090:9090
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   zookeeper:
-    image: 'docker.io/bitnami/zookeeper:3-debian-10'
+    image: 'docker.io/bitnami/zookeeper:3'
     ports:
       - '2181:2181'
     volumes:
@@ -16,7 +18,7 @@ services:
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
   kafka:
-    image: 'docker.io/bitnami/kafka:2-debian-10'
+    image: 'docker.io/bitnami/kafka:3'
     ports:
       - '9092:9092'
     volumes:
@@ -31,7 +33,7 @@ services:
     depends_on:
       - zookeeper
   kafka-topics:
-    image: 'docker.io/bitnami/kafka:2-debian-10'
+    image: 'docker.io/bitnami/kafka:3'
     command: /bin/sh -c "
       sleep 20 &&
       kafka-topics.sh --bootstrap-server kafka:9093 --create --topic raw-payloads --partitions 1 --replication-factor 1"

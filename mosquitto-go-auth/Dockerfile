@@ -1,4 +1,4 @@
-FROM iegomez/mosquitto-go-auth:1.6.0
+FROM iegomez/mosquitto-go-auth:latest
 
 COPY config/* /etc/mosquitto/
 

@@ -1,7 +1,6 @@
-require('dotenv').config()
-const mqtt = require('mqtt')
+import mqtt from 'mqtt'
 
-const env = require('../../app/env')
+import env from '../../app/env.js'
 
 const createPub = async (options) => {
   const mqttClient = mqtt.connect(env.MQTT_ENDPOINT, options)
@@ -40,4 +39,4 @@ const createPub = async (options) => {
   })
 }
 
-module.exports = createPub
+export default createPub

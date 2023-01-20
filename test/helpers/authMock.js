@@ -1,7 +1,9 @@
-const { before, after } = require('mocha')
-const express = require('express')
+import { before, after } from 'mocha'
+import express from 'express'
 
-const { AUTH_SERVICE_PORT, API_MAJOR_VERSION, AUTH_ROUTE } = require('../../app/env')
+import env from '../../app/env.js'
+
+const { AUTH_SERVICE_PORT, AUTH_ROUTE } = env
 
 const tokenResponses = {
   validToken: { status: 200, result: { sub: 'thing/574bd77c-4aba-4557-aa9e-066939f938cc' } },
@@ -18,7 +20,7 @@ const setupAuthMock = (context) => {
   before(async function () {
     const app = express()
 
-    app.get(`/${API_MAJOR_VERSION}/${AUTH_ROUTE}`, async (req, res) => {
+    app.get(`/${AUTH_ROUTE}`, async (req, res) => {
       const authorization = req.headers.authorization
       if (!authorization || !authorization.startsWith(tokenPrefix)) {
         res.status(401).send()
@@ -54,4 +56,4 @@ const setupAuthMock = (context) => {
   })
 }
 
-module.exports = { setupAuthMock }
+export { setupAuthMock }

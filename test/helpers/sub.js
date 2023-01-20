@@ -1,8 +1,7 @@
-const { Kafka, logLevel: kafkaLogLevels } = require('kafkajs')
-require('dotenv').config()
-const delay = require('delay')
+import { Kafka, logLevel as kafkaLogLevels } from 'kafkajs'
+import delay from 'delay'
 
-const env = require('../../app/env')
+import env from '../../app/env.js'
 
 const createSub = async () => {
   const kafka = new Kafka({
@@ -47,4 +46,4 @@ const createSub = async () => {
   }
 }
 
-module.exports = createSub
+export default createSub

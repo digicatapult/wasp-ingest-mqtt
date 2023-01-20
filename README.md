@@ -43,11 +43,11 @@ npm test
 | variable            | required |            default            | description                                                                                                           |
 | :------------------ | :------: | :---------------------------: | :-------------------------------------------------------------------------------------------------------------------- |
 | SERVICE_TYPE        |    N     |      `WASP_INGEST_MQTT`       | Name of the service type (used to discriminate logs)                                                                  |
+| PORT                |    N     |             `80`              | Port on which the service will listen                                                                                 |
 | LOG_LEVEL           |    N     |            `info`             | Logging level. Valid values are [`trace`, `debug`, `info`, `warn`, `error`, `fatal`]. When testing, default = `debug` |
 | PORT                |    N     |             `80`              | Port on which the service will listen                                                                                 |
 | KAFKA_LOG_LEVEL     |    N     |           `nothing`           | Logging level for Kafka. Valid values are [`debug`, `info`, `warn`, `error`, `nothing`]                               |
-| API_MAJOR_VERSION   |    N     |             `v1`              | Major API version                                                                                                     |
-| AUTH_ROUTE          |    N     |            `auth`             | Route on authentication service to validate tokens                                                                    |
+| AUTH_ROUTE          |    N     |            `v1/auth`             | Route on authentication service to validate tokens                                                                    |
 | KAFKA_BROKERS       |    N     |       `localhost:9092`        | List of addresses for the Kafka brokers                                                                               |
 | WASP_INGEST_NAME    |    N     |            `mqtt`             | Name of this ingest type                                                                                              |
 | KAFKA_PAYLOAD_TOPIC |    N     |        `raw-payloads`         | Topic to publish payloads to                                                                                          |
@@ -56,37 +56,3 @@ npm test
 | MQTT_ENDPOINT       |    Y     |                               | Endpoint, including protocol of the MQTT broker to receive messages via                                               |
 | MQTT_USERNAME       |    Y     |                               | Username to connect to the MQTT broker                                                                                |
 | MQTT_PASSWORD       |    Y     |                               | Password to connect to the MQTT broker                                                                                |
-
-## Helm/Kubernetes
-
-Install `minikube` and `helm` using Homebrew, then start `minikube` and update helm dependencies:
-
-```
-brew install minikube helm
-minikube start
-helm dependency update helm/wasp-ingest-mqtt
-```
-
-Eval is required to provide helm with visibility for your local docker image repository:
-
-```
-eval $(minikube docker-env)
-```
-
-Build the docker image (change `src=` to point to your local github token):
-
-```
-DOCKER_BUILDKIT=1 docker build -t wasp-ingest-mqtt:latest --secret id=github,src=<path/to/your/github_token> .
-```
-
-To run/deploy the application on kubernetes via helm charts use the following `ct-values.yaml` with the corresponding overrides:
-
-```
-helm install wasp-ingest-mqtt helm/wasp-ingest-mqtt -f helm/wasp-ingest-mqtt/ci/ct-values.yaml
-```
-
-Check the pods are running successfully using:
-
-```
-kubectl get pods -A
-```

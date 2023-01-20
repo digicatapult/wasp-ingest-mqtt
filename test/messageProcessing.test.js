@@ -1,13 +1,13 @@
-const { describe, before, after, it } = require('mocha')
-const { expect } = require('chai')
+import { describe, before, after, it } from 'mocha'
+import { expect } from 'chai'
 
-const { setupServer } = require('./helpers/server')
-const { setupAuthMock } = require('./helpers/authMock')
+import { setupServer } from './helpers/server.js'
+import { setupAuthMock } from './helpers/authMock.js'
 
-const createPub = require('./helpers/pub')
-const createSub = require('./helpers/sub')
+import createPub from './helpers/pub.js'
+import createSub from './helpers/sub.js'
 
-const env = require('../app/env')
+import env from '../app/env.js'
 
 describe('Message Processing', function () {
   const context = {}

@@ -1,16 +1,15 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const pinoHttp = require('pino-http')
+import express from 'express'
+import bodyParser from 'body-parser'
+import pinoHttp from 'pino-http'
 
-const startMessagePipeline = require('./messagePipeline')
-const { PORT } = require('./env')
-const {
-  validateToken,
-  Errors: { AuthServiceError },
-} = require('./authService')
-const logger = require('./logger')
+import startMessagePipeline from './messagePipeline/index.js'
+import env from './env.js'
+import { validateToken, AuthServiceError } from './authService.js'
+import logger from './logger.js'
 
-const { jwtFormat, subjectFormat, topicFormat } = require('./formats')
+import { jwtFormat, subjectFormat, topicFormat } from './formats.js'
+
+const { PORT } = env
 
 async function createHttpServer() {
   const app = express()
@@ -187,4 +186,4 @@ async function startServer() {
   }
 }
 
-module.exports = { startServer, createHttpServer }
+export { startServer, createHttpServer }

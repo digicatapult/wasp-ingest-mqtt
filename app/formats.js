@@ -6,8 +6,4 @@ const jwtFormat = (s) => ('' + s).match(jwtMatch)
 const subjectFormat = (s) => ('' + s).match(subjectMatch)
 const topicFormat = (s) => ('' + s).match(topicMatch)
 
-module.exports = {
-  jwtFormat,
-  subjectFormat,
-  topicFormat,
-}
+export { jwtFormat, subjectFormat, topicFormat }

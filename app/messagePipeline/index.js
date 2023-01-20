@@ -1,8 +1,8 @@
-const setupListener = require('./mqtt')
-const setupParser = require('./parser')
-const setupForwarder = require('./forwarder')
+import setupListener from './mqtt.js'
+import setupParser from './parser.js'
+import setupForwarder from './forwarder.js'
 
-module.exports = async () => {
+export default async () => {
   // This is the order in which the message should pass along the chain
   const setupChain = [setupListener, setupParser, setupForwarder]
   // compose the promises together

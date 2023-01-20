@@ -1,10 +1,10 @@
-const envalid = require('envalid')
-const dotenv = require('dotenv')
+import envalid from 'envalid'
+import dotenv from 'dotenv'
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: 'test/test.env' })
 } else {
-  dotenv.config({ path: '.env' })
+  dotenv.config()
 }
 
 const options = { strict: true }
@@ -23,8 +23,7 @@ const vars = envalid.cleanEnv(
       default: 'nothing',
       choices: ['debug', 'info', 'warn', 'error', 'nothing'],
     }),
-    API_MAJOR_VERSION: envalid.str({ default: 'v1' }),
-    AUTH_ROUTE: envalid.str({ default: 'auth' }),
+    AUTH_ROUTE: envalid.str({ default: 'v1/auth' }),
     MQTT_ENDPOINT: envalid.str({
       devDefault: 'mqtt://localhost:1883',
     }),
@@ -34,7 +33,7 @@ const vars = envalid.cleanEnv(
       const kafkaSet = new Set(input === '' ? [] : input.split(','))
       if (kafkaSet.size === 0) throw new Error('At least one kafka broker must be configured')
       return [...kafkaSet]
-    })({ default: 'localhost:9092' }),
+    })({ default: ['localhost:9092'] }),
     KAFKA_PAYLOAD_TOPIC: envalid.str({ default: 'raw-payloads' }),
     WASP_INGEST_NAME: envalid.str({ default: 'mqtt' }),
     AUTH_SERVICE_HOST: envalid.host({ default: 'wasp-authentication-service' }),
@@ -43,4 +42,4 @@ const vars = envalid.cleanEnv(
   options
 )
 
-module.exports = vars
+export default vars

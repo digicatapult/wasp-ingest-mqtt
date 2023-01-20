@@ -1,7 +1,9 @@
-const fetch = require('node-fetch')
+import fetch from 'node-fetch'
 
-const { AUTH_SERVICE_HOST, AUTH_SERVICE_PORT, API_MAJOR_VERSION, AUTH_ROUTE } = require('./env')
-const logger = require('./logger')
+import env from './env.js'
+import logger from './logger.js'
+
+const { AUTH_SERVICE_HOST, AUTH_SERVICE_PORT, AUTH_ROUTE } = env
 
 class AuthServiceError extends Error {
   constructor({ code, message }) {
@@ -10,7 +12,7 @@ class AuthServiceError extends Error {
   }
 }
 
-const apiPrefix = `http://${AUTH_SERVICE_HOST}:${AUTH_SERVICE_PORT}/${API_MAJOR_VERSION}`
+const apiPrefix = `http://${AUTH_SERVICE_HOST}:${AUTH_SERVICE_PORT}`
 
 const validateToken = async ({ token }) => {
   const url = `${apiPrefix}/${AUTH_ROUTE}`
@@ -41,9 +43,4 @@ const validateToken = async ({ token }) => {
   }
 }
 
-module.exports = {
-  Errors: {
-    AuthServiceError,
-  },
-  validateToken,
-}
+export { AuthServiceError, validateToken }

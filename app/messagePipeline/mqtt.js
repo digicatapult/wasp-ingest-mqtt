@@ -1,7 +1,9 @@
-const mqtt = require('mqtt')
+import mqtt from 'mqtt'
 
-const globalLogger = require('../logger')
-const { MQTT_ENDPOINT, MQTT_USERNAME, MQTT_PASSWORD } = require('../env')
+import globalLogger from '../logger.js'
+import env from '../env.js'
+
+const { MQTT_ENDPOINT, MQTT_USERNAME, MQTT_PASSWORD } = env
 
 const setupMqttListener = async (next) => {
   const logger = globalLogger.child({ module: 'mqtt' })
@@ -59,4 +61,4 @@ const setupMqttListener = async (next) => {
   })
 }
 
-module.exports = setupMqttListener
+export default setupMqttListener

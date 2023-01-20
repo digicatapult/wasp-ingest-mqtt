@@ -1,8 +1,8 @@
-const { before, after } = require('mocha')
-const request = require('supertest')
+import { before, after } from 'mocha'
+import request from 'supertest'
 
-const env = require('../../app/env')
-const { createHttpServer } = require('../../app/server')
+import env from '../../app/env.js'
+import { createHttpServer } from '../../app/server.js'
 
 let server = null
 const setupMockServer = async (context) => {
@@ -47,4 +47,4 @@ const setupServer = async (context) => {
   })
 }
 
-module.exports = { setupMockServer, setupServer }
+export { setupMockServer, setupServer }

@@ -1,5 +1,9 @@
 # wasp-ingest-mqtt
 
+## Deprecation Notice
+`WASP` was deprecated on March 14th 2024, there will be no further dependency or security updates to this platform.
+---
+
 WASP Ingest for things connecting over MQTT.
 
 Connects to a WASP managed MQTT broker utilising the `mosquitto-go-auth` plugin. Things are authenticated using a JWT that is validated using the `wasp-authentication-service`.
